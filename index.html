@@ -3,284 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quick Vibe Check ✨</title>
+  <title>A Question for You ❤️</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body {
-      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
       overflow: hidden;
-      color: #f8fafc;
     }
     .card {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 32px 24px;
-      border-radius: 28px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      padding: 35px 25px;
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
       text-align: center;
       max-width: 380px;
       width: 100%;
-      position: relative;
-      min-height: 280px;
-      animation: fadeIn 0.4s ease-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
     }
     .hidden { display: none; }
-    
-    .badge {
-      display: inline-block;
-      padding: 6px 14px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: #a855f7;
-      margin-bottom: 15px;
-    }
-    
-    h2 { color: #ffffff; font-size: 22px; margin-bottom: 12px; font-weight: 700; line-height: 1.3; }
-    p { color: #cbd5e1; font-size: 15px; margin-bottom: 22px; line-height: 1.5; }
-    
-    .btn-container {
-      position: relative;
-      width: 100%;
-      height: 130px;
+    h2 { color: #d63384; font-size: 22px; margin-bottom: 20px; line-height: 1.4; }
+    p { color: #4a4a4a; font-size: 17px; margin-bottom: 25px; line-height: 1.5; }
+    .btn-group {
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      gap: 15px;
+      align-items: center;
+      gap: 20px;
+      margin-top: 15px;
+      min-height: 50px;
+      position: relative;
     }
-    
     button {
-      padding: 13px 26px;
-      font-size: 15px;
+      padding: 12px 28px;
+      font-size: 16px;
       border: none;
-      border-radius: 18px;
+      border-radius: 25px;
       cursor: pointer;
       font-weight: 600;
-      transition: all 0.2s ease;
+      transition: background 0.2s, transform 0.2s;
     }
+    .btn-yes { background: #28a745; color: white; }
+    .btn-yes:hover { background: #218838; transform: scale(1.05); }
+    .btn-next { background: #d63384; color: white; width: 100%; margin-top: 10px; }
+    .btn-next:hover { background: #c2185b; }
+    .btn-no { background: #dc3545; color: white; white-space: nowrap; }
     
-    .btn-yes { background: #10b981; color: white; z-index: 2; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); }
-    .btn-yes:hover { background: #059669; transform: scale(1.03); }
-    
-    .btn-next { 
-      background: linear-gradient(135deg, #a855f7, #ec4899); 
-      color: white; 
-      width: 100%; 
-      margin-top: 10px;
-      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
-    }
-    .btn-next:hover { opacity: 0.95; transform: translateY(-1px); }
-    
-    .btn-no { 
-      background: #ef4444; 
-      color: white; 
-      white-space: nowrap; 
-      position: absolute;
-      transition: all 0.12s ease-out;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-    }
-    
-    /* Multiple Choice Options */
-    .option-btn {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #e2e8f0;
-      padding: 12px 16px;
-      margin-bottom: 10px;
-      text-align: left;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .option-btn:hover {
-      background: rgba(168, 85, 247, 0.2);
-      border-color: #a855f7;
-    }
-    
-    /* Slider Styling */
-    .slider-container { margin: 25px 0 15px 0; }
+    .slider-container { margin: 20px 0; }
     input[type=range] {
       width: 100%;
-      accent-color: #ec4899;
+      accent-color: #d63384;
       height: 8px;
-      border-radius: 5px;
       cursor: pointer;
     }
-    .percentage { font-size: 36px; font-weight: 800; color: #ec4899; margin-top: 10px; }
-    .status-text { font-size: 14px; color: #94a3b8; margin-top: 6px; min-height: 20px; }
-
-    /* Final Card */
-    .receipt {
-      background: rgba(0, 0, 0, 0.25);
-      border-radius: 16px;
-      padding: 15px;
-      margin: 15px 0;
-      text-align: left;
-      font-size: 14px;
-      border-left: 3px solid #10b981;
-    }
-    .receipt-item { display: flex; justify-content: space-between; margin-bottom: 8px; }
-    .receipt-item span { color: #94a3b8; }
-    .receipt-item strong { color: #f8fafc; }
+    .percentage { font-size: 32px; font-weight: 700; color: #d63384; margin-top: 10px; }
+    .status-text { font-size: 15px; color: #666; margin-top: 8px; min-height: 22px; font-weight: 500; }
   </style>
 </head>
 <body>
 
-  <!-- STEP 1: Main Question -->
+  <!-- STEP 1 -->
   <div id="step1" class="card">
-    <span class="badge">Question #1</span>
-    <h2>Vibe check: Do you like me? 🤨✨</h2>
-    <p>Choose wisely, system is monitoring response time...</p>
-    <div class="btn-container" id="cardArea">
-      <button class="btn-yes" onclick="goToStep(2)">Yes, obviously 🚀</button>
-      <button id="noBtn" class="btn-no" style="right: 20px; top: 0;">No ❌</button>
+    <h2>Do you like me? 🙂😅</h2>
+    <div class="btn-group">
+      <button class="btn-yes" onclick="goToStep(2)">Yes! 💕</button>
+      <button id="noBtn" class="btn-no">No ❌</button>
     </div>
   </div>
 
-  <!-- STEP 2: Vibe Check Quiz -->
+  <!-- STEP 2 -->
   <div id="step2" class="card hidden">
-    <span class="badge">Question #2</span>
-    <h2>Which option describes me best? 🤔</h2>
-    <p>Be honest, no pressure.</p>
-    <button class="option-btn" onclick="selectOption('10/10 Humor 🎭')">
-      <span>10/10 Humor & Energy 🎭</span> <span>➡️</span>
-    </button>
-    <button class="option-btn" onclick="selectOption('Unmatched Taste 👌')">
-      <span>Top Tier Taste & Vibe 👌</span> <span>➡️</span>
-    </button>
-    <button class="option-btn" onclick="selectOption('Surprisingly Cool 😎')">
-      <span>Surprisingly Cool 😎</span> <span>➡️</span>
-    </button>
+    <h2>I knew it! 😂😏</h2>
+    <p>I mean... how could you not?</p>
+    <button class="btn-next" onclick="goToStep(3)">Next ➡️</button>
   </div>
 
-  <!-- STEP 3: Slider Game -->
+  <!-- STEP 3 -->
   <div id="step3" class="card hidden">
-    <span class="badge">Question #3</span>
-    <h2>Rate the compatibility percentage 🎚️</h2>
+    <h2>How much do you like me? 🎚️</h2>
     <div class="slider-container">
-      <input type="range" id="loveSlider" min="0" max="100" value="10" oninput="updateSlider(this.value)" onchange="snapToHundred()" onmouseup="snapToHundred()" ontouchend="snapToHundred()">
-      <div class="percentage" id="sliderVal">10%</div>
-      <div class="status-text" id="statusText">Drag the slider to adjust...</div>
+      <input type="range" id="loveSlider" min="0" max="100" value="0" oninput="updateSlider(this.value)" onchange="snapToHundred()" onmouseup="snapToHundred()" ontouchend="snapToHundred()">
+      <div class="percentage" id="sliderVal">0%</div>
+      <div class="status-text" id="statusText">Drag to choose!</div>
     </div>
-    <button class="btn-next" onclick="goToStep(4)">Continue ➡️</button>
+    <button class="btn-next" onclick="goToStep(4)">Submit 💖</button>
   </div>
 
-  <!-- STEP 4: Hangout Choice -->
+  <!-- STEP 4 -->
   <div id="step4" class="card hidden">
-    <span class="badge">Final Step</span>
-    <h2>What's our next official plan? ☕🍕</h2>
-    <p>Select your reward for passing the test:</p>
-    <button class="option-btn" onclick="selectPlan('Coffee & Gossip ☕')">
-      <span>Coffee & Good Conversations ☕</span>
-    </button>
-    <button class="option-btn" onclick="selectPlan('Late Night Pizza 🍕')">
-      <span>Late Night Pizza Hunt 🍕</span>
-    </button>
-    <button class="option-btn" onclick="selectPlan('World Domination 🌍')">
-      <span>Secret Mission / World Domination 🌍</span>
-    </button>
+    <h2>I didn't know it was this much! 😂😭</h2>
+    <p>100%? That's impressive! 🙈</p>
+    <button class="btn-next" onclick="goToStep(5)">One last thing... ❤️</button>
   </div>
 
-  <!-- STEP 5: Final Receipt -->
+  <!-- STEP 5 -->
   <div id="step5" class="card hidden">
-    <span class="badge" style="color:#10b981">Test Passed! 🎉</span>
-    <h2>Official Compatibility Report 📜</h2>
-    <div class="receipt">
-      <div class="receipt-item"><span>Status:</span> <strong>Approved ✅</strong></div>
-      <div class="receipt-item"><span>Best Trait:</span> <strong id="userChoice1">Cool Vibe</strong></div>
-      <div class="receipt-item"><span>Match Score:</span> <strong>100% (Locked)</strong></div>
-      <div class="receipt-item"><span>Next Plan:</span> <strong id="userChoice2">Coffee</strong></div>
-    </div>
-    <p style="margin-bottom:10px; font-size:14px;">Screen confirmed. Have a great day ahead! ⭐</p>
+    <h2>The feeling is mutual! 🥰</h2>
+    <p>I like you too! ❤️✨</p>
   </div>
 
   <script>
+    // Smart dodging No Button
     const noBtn = document.getElementById('noBtn');
-    const container = document.getElementById('cardArea');
-    
-    // لیست متن‌های فرار (چرخشی و بی‌نهایت)
     const noTexts = [
       "No ❌",
       "Nice try! 😜",
-      "Button Out of Service 🔧",
-      "Access Denied 🚫",
-      "Error 404 🤖",
-      "Too slow! 🏃‍♂️",
-      "Just click Yes! ✨"
+      "Not a chance! 🏃‍♂️",
+      "Still missed! 😂",
+      "Just click Yes! ❤️"
     ];
     let dodgeCount = 0;
 
     function dodge() {
+      if (dodgeCount === 0) {
+        noBtn.style.position = 'fixed';
+      }
       dodgeCount++;
-      // چرخش بین متن‌ها بدون تمام شدن
-      const textIndex = dodgeCount % noTexts.length;
+      const textIndex = Math.min(dodgeCount, noTexts.length - 1);
       noBtn.innerText = noTexts[textIndex];
 
-      // محاسبه دقیق محدوده حرکتی داخل کادر
-      const maxX = container.clientWidth - noBtn.offsetWidth;
-      const maxY = container.clientHeight - noBtn.offsetHeight;
+      const padding = 20;
+      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-      const randomX = Math.floor(Math.random() * Math.max(10, maxX));
-      const randomY = Math.floor(Math.random() * Math.max(10, maxY));
+      const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
 
       noBtn.style.left = randomX + 'px';
       noBtn.style.top = randomY + 'px';
-      noBtn.style.right = 'auto';
     }
 
     noBtn.addEventListener('mouseover', dodge);
     noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); dodge(); });
 
-    let chosenTrait = "";
-    let chosenPlan = "";
-
+    // Step navigation
     function goToStep(stepNumber) {
       document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
       document.getElementById('step' + stepNumber).classList.remove('hidden');
     }
 
-    function selectOption(trait) {
-      chosenTrait = trait;
-      goToStep(3);
-    }
-
-    function selectPlan(plan) {
-      chosenPlan = plan;
-      document.getElementById('userChoice1').innerText = chosenTrait;
-      document.getElementById('userChoice2').innerText = chosenPlan;
-      goToStep(5);
-    }
-
+    // Dynamic slider logic
     const slider = document.getElementById('loveSlider');
     const sliderVal = document.getElementById('sliderVal');
     const statusText = document.getElementById('statusText');
 
     function updateSlider(val) {
       sliderVal.innerText = val + '%';
-      if (val < 40) {
-        statusText.innerText = "Are you sure? Try dragging higher 😏";
-      } else if (val < 80) {
-        statusText.innerText = "Getting warmer... 🚀";
+      if (val < 30) {
+        statusText.innerText = "Wait, really? 🤨";
+      } else if (val < 70) {
+        statusText.innerText = "Come on, you can do better! 😏";
       } else if (val < 100) {
-        statusText.innerText = "Almost maxed out! 🔥";
+        statusText.innerText = "Almost there... 😃";
       } else {
-        statusText.innerText = "100%! Maximum compatibility ✨";
+        statusText.innerText = "100%! Perfect! ❤️";
       }
     }
 
